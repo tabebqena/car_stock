@@ -51,6 +51,7 @@ def write_data(file_path, data, line_fields, separator):
 
 def add_line(file_path, line):
     f = open(file_path, "a")
-    f.writelines([line])
+    f.write(line)
+    f.write("\n")
     f.close()
     return True

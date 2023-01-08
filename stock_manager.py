@@ -36,6 +36,7 @@ def get_car_by_index(index):
 def update_stock_car(car_index, car_dict):
     __stock_data[car_index] = car_dict
     write_data(STOCK_FILE_PATH, __stock_data, stock_line_fields, SEPARATOR)
+    return True
 
 
 def delete_car_from_stock(car_index):
@@ -45,3 +46,13 @@ def delete_car_from_stock(car_index):
 
 def get_all():
     return __stock_data
+
+
+def create_short_name(car_dict):
+    return (
+        car_dict.get("type", " ").upper()
+        + " "
+        + car_dict.get("model_year", " ")
+        + " "
+        + car_dict.get("body_type", " ").upper()
+    )

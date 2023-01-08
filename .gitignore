@@ -2,3 +2,5 @@ nourlearn.code-workspace
 run_code.sh
 NOTE
 cars.txt
+__pycahce__/*.pyc
+**/*.pyc

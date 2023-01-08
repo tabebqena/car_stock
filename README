@@ -1,0 +1,4 @@
+## Simple CRUD app for learning python
+
+- To use the command line, type `python3 app.py`
+- To use the graphical user interface, type `python3 gui.py`

@@ -1,3 +1,6 @@
+from copy import copy
+
+
 def print_car(car_dict):
     for k, v in car_dict.items():
         key_length = len(k)
@@ -54,3 +57,37 @@ def print_car_list(car_list, fields):
     for car_dict in car_list:
         line = print_car_as_row(car_dict, fields, column_widths)
         print("-" * len(line))
+
+
+def print_message_in_window(msg, width=100, char="#"):
+    print("f")
+    lines = []
+    msg = msg.strip()
+    length = len(msg)
+    if length + 2 <= width:
+        msg = " " + msg + " "
+        lines.append(msg)
+
+    else:
+        words = msg.split()
+        line = " "
+        for word in words:
+            word_length = len(word)
+            print(line)
+            if len(line) + word_length + 2 <= width:
+                line = line + word + " "
+            else:
+                lines.append(copy(line))
+                print(lines)
+                line = " " + word + " "
+        if line:
+            lines.append(copy(line))
+    print(char * (width + 2))
+    for line in lines:
+        line_length = len(line)
+        remain = width - line_length
+        left_pad = int(remain / 2)
+        right_pad = width - line_length - left_pad
+
+        print(char + (" " * left_pad) + line + (" " * right_pad) + char)
+    print(char * (width + 2))

@@ -6,10 +6,14 @@ __stock_data = []
 
 
 def add_car_to_stock(car_dict):
-    __stock_data.append(car_dict)
-    line = dict_to_line(car_dict, stock_line_fields, SEPARATOR)
-    print(line)
-    add_line(STOCK_FILE_PATH, line)
+    car_index = search_for_car("chassis_num", car_dict.get("chassis_num"))
+    if car_index == None:
+        __stock_data.append(car_dict)
+        line = dict_to_line(car_dict, stock_line_fields, SEPARATOR)
+        add_line(STOCK_FILE_PATH, line)
+        return True, "Added successfully"
+    else:
+        return False, "This chassis number is already added !"
 
 
 def load_stock_data():

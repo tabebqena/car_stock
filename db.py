@@ -54,4 +54,3 @@ def add_line(file_path, line):
     f.writelines([line])
     f.close()
     return True
-

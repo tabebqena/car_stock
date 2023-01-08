@@ -3,15 +3,15 @@ import copy
 
 from constants import stock_line_fields
 from logics import build_car_dict, validate_car_dict
-from printing import print_car, print_car_list
+from printing import print_car, print_car_list, print_message_in_window
 from stock_manager import (
     add_car_to_stock,
+    delete_car_from_stock,
     get_all,
     get_car_by_index,
     load_stock_data,
     search_for_car_by_chassis,
     update_stock_car,
-    delete_car_from_stock,
 )
 
 __help_message = """
@@ -47,10 +47,13 @@ def add_new_car():
 
     error = validate_car_dict(car_dict)
     if error:
-        print(error)
+        print_message_in_window(error)
         return
-    add_car_to_stock(car_dict)
-    print("Car added successfully !")
+    is_added, msg = add_car_to_stock(car_dict)
+    if is_added:
+        print_message_in_window("Car added successfully !")
+    else:
+        print_message_in_window("ERROR: " + msg)
 
 
 def list_cars():
@@ -86,11 +89,11 @@ def update_car():
     chassis_num = input("Enter the chassis number: ")
     car_index = search_for_car_by_chassis(chassis_num)
     if car_index is None:
-        print("ERROR: No car with this chasis num: ", chassis_num)
+        print_message_in_window("ERROR: No car with this chasis num: " + chassis_num)
         return
     car_dict = copy.copy(get_car_by_index(car_index))
     print_car(car_dict)
-    print("#" * 30)
+    print_message_in_window("Update Car")
     for k, v in car_dict.items():
         print(k.title(), "   : ", v)
         new_value = input("Enter new value or press enter to leave unchanged\n")
@@ -98,29 +101,29 @@ def update_car():
             car_dict[k] = new_value
     error = validate_car_dict(car_dict)
     if error:
-        print(error)
+        print_message_in_window(error)
         return
     update_stock_car(car_index, car_dict)
-    print("Car Updated successfully !")
+    print_message_in_window("Car Updated successfully !")
 
 
 def delete_car():
     chassis_num = input("Enter the chassis number: ")
     car_index = search_for_car_by_chassis(chassis_num)
     if car_index is None:
-        print("ERROR: No car with this chassis num: ", chassis_num)
+        print_message_in_window("ERROR: No car with this chassis num: " + chassis_num)
         return
     confirm = input("Are you sure?? you want to delete this car perminantly ! Yes: y ")
     if confirm.lower() == "y":
         delete_car_from_stock(car_index)
-    print("Car deleted successfully !")
+    print_message_in_window("Car deleted successfully !")
 
 
 def show_car():
     chassis_num = input("Enter the chassis number: ")
     car_index = search_for_car_by_chassis(chassis_num)
     if car_index is None:
-        print("ERROR: No car with this chassis num: ", chassis_num)
+        print_message_in_window("ERROR: No car with this chassis num: " + chassis_num)
         return
     car_dict = get_car_by_index(car_index)
     print_car(car_dict)
@@ -150,10 +153,12 @@ if __name__ == "__main__":
     while True:
         cmd = input("Please enter command (type h for help):\n")
         if cmd not in available_commands.keys():
-            print("please type one of:" + ",".join(available_commands))
+            print_message_in_window(
+                "please type one of:" + ", ".join(available_commands)
+            )
             continue
         if cmd in ["q", "quit"]:
-            print("Quit by the user.")
+            print_message_in_window("Quit by the user.")
             break
         func = available_commands[cmd]
         func()

@@ -3,29 +3,29 @@ from constants import SEPARATOR, stock_line_fields
 
 def common_validity(field_name, value: str):
     if "\\" in value or "/" in value or SEPARATOR in value:
-        return "ERROR: "+field_name + " shouldn't contain \,/ or " + SEPARATOR
+        return "ERROR: " + field_name + " shouldn't contain \,/ or " + SEPARATOR
 
 
 def not_empty(field_name, value):
     if not value:
-        return "ERROR: "+field_name + " is required (can't be empty)"
+        return "ERROR: " + field_name + " is required (can't be empty)"
 
 
 def is_string(field_name, value):
     if not isinstance(value, str):
-        return "ERROR: "+field_name + " should be string"
+        return "ERROR: " + field_name + " should be string"
 
 
 def is_num(field_name, value):
     try:
         int(value)
     except:
-        return "ERROR: "+field_name + " should be number"
+        return "ERROR: " + field_name + " should be number"
 
 
 def is_positive(field_name, value):
     if int(value) < 0:
-        return "ERROR: "+field_name + " should be higher than 0"
+        return "ERROR: " + field_name + " should be higher than 0"
 
 
 validators = {
@@ -66,7 +66,7 @@ def build_car_dict(chassis_num, make_num, model_year, price, milage, type, body_
 def validate_car_dict(car_dict):
     for field_name in stock_line_fields:
         if car_dict.get(field_name, None) is None:
-            return "ERROR: "+"The car info has no value for: ", field_name
+            return "ERROR: " + "The car info has no value for: ", field_name
 
     for field_name in stock_line_fields:
         _validators = validators.get(field_name)

@@ -66,7 +66,7 @@ def build_car_dict(chassis_num, make_num, model_year, price, milage, type, body_
 def validate_car_dict(car_dict):
     for field_name in stock_line_fields:
         if car_dict.get(field_name, None) is None:
-            return "ERROR: " + "The car info has no value for: ", field_name
+            return "ERROR: " + "The car info has no value for: " + field_name
 
     for field_name in stock_line_fields:
         _validators = validators.get(field_name)
